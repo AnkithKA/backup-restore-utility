@@ -26,16 +26,16 @@ A user-friendly **Backup and Restore Utility** built with **Python** and **Flask
 ---
 
 ## Project Structure
-```php
-backup_restore_project/
+```
+backup_restore_web/
 ├── app.py                # Main Flask application
 ├── templates/
 │   └── index.html        # Web interface
-├── static/
-│   └── styles.css        # Styling for the web interface
-├── logs/
-│   └── backup_restore.log # Log file for operations
-└── README.md             # Project documentation
+├── backup_restore.log    # Log file for operations
+├── README.md             # Project documentation
+├── backup_restore.py     # Backup and restore logic
+├── main.py               # Main program or additional logic
+└── requirements.txt      # Required Python packages
 ```
 
 ## Getting Started
@@ -59,4 +59,40 @@ python app.py
 Open your browser and navigate to:
 http://127.0.0.1:5000
 
+## How to Use
 
+### Backup
+1. Enter the **source directory** and **destination directory**.
+2. Enable **versioning** if needed (optional).
+3. Click the **Backup** button.
+4. Check the **destination directory** for the `.tar.gz` backup file.
+
+### Restore
+1. Enter the **path to the backup file**.
+2. Enter the **restore directory**.
+3. Click the **Restore** button.
+4. Verify the **restored files** in the specified directory.
+
+## Logs
+
+All operations (success and failure) are logged in `logs/backup_restore.log`.
+
+To view the logs, run the following command:
+
+```bash
+cat logs/backup_restore.log
+```
+## Conclusion
+
+Thank you for checking out the Backup and Restore Utility project. This tool simplifies the process of backing up and restoring your files with a user-friendly web interface.
+
+Feel free to contribute, report issues, or fork the project to customize it to your needs.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Thanks to Flask for the lightweight web framework.
+- Inspired by simple file management utilities.
