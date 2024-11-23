@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backup and Restore Utility</title>
+    <style>
+        /* Resetting some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f8fa;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Forms styling */
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            input,
+            select,
+            button {
+                padding: 12px;
+            }
+
+            .message {
+                font-size: 14px;
+            }
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Backup and Restore Utility</h1>
+
+        <!-- Backup Section -->
+        <div id="backup">
+            <h3>Backup</h3>
+            <form id="backupForm">
+                <label for="source_dir">Source Directory:</label>
+                <input type="text" id="source_dir" name="source_dir" required placeholder="Enter the source directory">
+
+                <label for="dest_dir">Destination Directory:</label>
+                <input type="text" id="dest_dir" name="dest_dir" required placeholder="Enter the destination directory">
+
+                <label for="versioning">Enable Versioning:</label>
+                <select id="versioning" name="versioning">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+
+                <button type="submit">Backup</button>
+            </form>
+        </div>
+
+        <!-- Restore Section -->
+        <div id="restore">
+            <h3>Restore</h3>
+            <form id="restoreForm">
+                <label for="backup_file">Backup File:</label>
+                <input type="text" id="backup_file" name="backup_file" required placeholder="Enter the backup file path">
+
+                <label for="restore_dir">Restore Directory:</label>
+                <input type="text" id="restore_dir" name="restore_dir" required placeholder="Enter the restore directory">
+
+                <button type="submit">Restore</button>
+            </form>
+        </div>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Backup and Restore Utility | All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Backup form submission with AJAX
+        document.getElementById('backupForm').onsubmit = function(event) {
+            event.preventDefault();
+            let formData = new FormData(event.target);
+            fetch("/backup", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+            });
+        };
+
+        // Restore form submission with AJAX
+        document.getElementById('restoreForm').onsubmit = function(event) {
+            event.preventDefault();
+            let formData = new FormData(event.target);
+            fetch("/restore", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('message').textContent = data.message;
+            });
+        };
+    </script>
+
+</body>
+
+</html>
